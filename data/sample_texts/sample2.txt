@@ -1,0 +1,3 @@
+﻿Design patterns improve code structure.
+Multithreading can process many files.
+Sequential and parallel versions must return the same result.

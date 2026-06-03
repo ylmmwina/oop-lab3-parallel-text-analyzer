@@ -36,8 +36,8 @@ It calculates:
 | Correct GUI/thread interaction | Done | background thread + `queue.Queue` + `after()` |
 | Object-oriented design | Done | separate analyzer, processors, models, benchmark classes |
 | Unit tests | Done | `tests/` |
-| Code documentation | Planned | Doxygen-style docstrings and `Doxyfile` |
-| Report/documentation | In progress | `docs/` |
+| Code documentation | Done | Doxygen-style docstrings and `Doxyfile` |
+| Report/documentation | Done | `docs/` |
 
 ## Technologies
 
@@ -146,6 +146,7 @@ Project documentation is stored in the `docs/` directory.
 | `docs/multithreading.md` | Explains sequential and multithreaded processing |
 | `docs/benchmark-results.md` | Explains benchmark measurements and CSV results |
 | `docs/testing.md` | Describes the testing strategy |
+| `docs/code-documentation.md` | Explains Doxygen-style code documentation |
 
 ## Notes
 

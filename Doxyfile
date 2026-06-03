@@ -1,0 +1,33 @@
+﻿PROJECT_NAME           = "Parallel Text Analyzer"
+PROJECT_BRIEF          = "Desktop application for sequential and multithreaded text analysis"
+OUTPUT_DIRECTORY       = docs/api
+CREATE_SUBDIRS         = NO
+
+INPUT                  = app core tests README.md
+FILE_PATTERNS          = *.py *.md
+RECURSIVE              = YES
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+
+OPTIMIZE_OUTPUT_JAVA   = YES
+MARKDOWN_SUPPORT       = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = NO
+WARN_IF_DOC_ERROR      = YES
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+HAVE_DOT               = NO
+CLASS_DIAGRAMS         = YES

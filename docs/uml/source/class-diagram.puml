@@ -1,0 +1,79 @@
+﻿@startuml
+title Parallel Text Analyzer - Class Diagram
+
+skinparam classAttributeIconSize 0
+
+class TextAnalyzerApp {
+    - selected_folder: Path
+    - message_queue: Queue
+    - worker_thread: Thread
+    + select_folder(): void
+    + run_comparison(): void
+    - _worker_run_comparison(files): void
+    - _process_queue(): void
+}
+
+class TextAnalyzer {
+    + analyze_file(file_path): TextAnalysisResult
+    - _validate_file(file_path): void
+    - _extract_words(text): list
+}
+
+class TextAnalysisResult {
+    + file_count: int
+    + line_count: int
+    + word_count: int
+    + char_count: int
+    + word_frequencies: Counter
+    + merge(other): TextAnalysisResult
+    + top_words(limit): list
+}
+
+class SequentialTextProcessor {
+    - analyzer: TextAnalyzer
+    + process_files(file_paths): TextAnalysisResult
+}
+
+class ParallelTextProcessor {
+    - max_workers: int
+    - analyzer: TextAnalyzer
+    + process_files(file_paths): TextAnalysisResult
+}
+
+class BenchmarkRunner {
+    - worker_counts: list
+    + run_for_dataset(dataset_path): list
+    + save_csv(rows, output_path): void
+}
+
+class BenchmarkRow {
+    + dataset_name: str
+    + file_count: int
+    + worker_count: int
+    + sequential_time: float
+    + parallel_time: float
+    + speedup: float
+    + results_equal: bool
+}
+
+class TextAnalyzerError
+class InvalidTextInputError
+
+TextAnalyzerApp --> SequentialTextProcessor
+TextAnalyzerApp --> ParallelTextProcessor
+TextAnalyzerApp --> TextAnalysisResult
+
+SequentialTextProcessor --> TextAnalyzer
+ParallelTextProcessor --> TextAnalyzer
+TextAnalyzer --> TextAnalysisResult
+
+BenchmarkRunner --> SequentialTextProcessor
+BenchmarkRunner --> ParallelTextProcessor
+BenchmarkRunner --> BenchmarkRow
+
+TextAnalyzerError <|-- InvalidTextInputError
+TextAnalyzer ..> InvalidTextInputError
+SequentialTextProcessor ..> InvalidTextInputError
+ParallelTextProcessor ..> InvalidTextInputError
+
+@enduml

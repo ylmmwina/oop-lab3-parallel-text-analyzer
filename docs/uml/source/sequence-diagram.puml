@@ -1,0 +1,49 @@
+﻿@startuml
+title Parallel Text Analyzer - GUI Thread Sequence
+
+actor User
+participant "TextAnalyzerApp\nGUI Thread" as GUI
+participant "Background Worker\nthreading.Thread" as Worker
+queue "message_queue\nqueue.Queue" as Queue
+participant "SequentialTextProcessor" as Sequential
+participant "ParallelTextProcessor" as Parallel
+participant "TextAnalyzer" as Analyzer
+
+User -> GUI : Select folder
+User -> GUI : Click "Run comparison"
+
+GUI -> Worker : start(files)
+activate Worker
+
+Worker -> Queue : put(status: sequential)
+Worker -> Sequential : process_files(files)
+
+loop each file
+    Sequential -> Analyzer : analyze_file(file)
+    Analyzer --> Sequential : TextAnalysisResult
+end
+
+Sequential --> Worker : sequential_result
+
+Worker -> Queue : put(status: parallel)
+Worker -> Parallel : process_files(files)
+
+loop files in worker threads
+    Parallel -> Analyzer : analyze_file(file)
+    Analyzer --> Parallel : TextAnalysisResult
+end
+
+Parallel --> Worker : parallel_result
+
+Worker -> Worker : compare results
+Worker -> Queue : put(result report)
+Worker -> Queue : put(status: done)
+deactivate Worker
+
+loop every 100 ms
+    GUI -> Queue : get messages with after()
+    Queue --> GUI : status / progress / result
+    GUI -> GUI : update labels, progress bar, output box
+end
+
+@enduml

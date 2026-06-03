@@ -1,0 +1,26 @@
+﻿@startuml
+title Parallel Text Analyzer - Activity Diagram
+
+start
+
+:Open application;
+:Select folder with .txt files;
+
+if (Folder contains .txt files?) then (yes)
+    :Start background worker thread;
+    :Run sequential processing;
+    :Measure sequential time;
+    :Run parallel processing;
+    :Measure parallel time;
+    :Compare results;
+    :Calculate speedup;
+    :Send result to GUI queue;
+    :GUI thread reads queue with after();
+    :Display report;
+else (no)
+    :Show validation message;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,38 @@
+﻿@startuml
+title Parallel Text Analyzer - Deployment Diagram
+
+node "Developer Machine" {
+    node "PyCharm" {
+        artifact "Source Code"
+        artifact "Tests"
+        artifact "Documentation"
+    }
+
+    node "Python Virtual Environment" {
+        component "Python Interpreter"
+        component "CustomTkinter"
+        component "pytest"
+    }
+
+    node "Local File System" {
+        database "data/sample_texts"
+        database "results/benchmark-results.csv"
+        database "docs/uml/images"
+    }
+}
+
+node "GitHub Repository" {
+    artifact "Committed Source Files"
+    artifact "README.md"
+    artifact "docs/"
+    artifact "PlantUML Sources"
+    artifact "PNG Diagrams"
+}
+
+"Source Code" --> "Python Interpreter"
+"Tests" --> "pytest"
+"Source Code" --> "data/sample_texts"
+"Source Code" --> "results/benchmark-results.csv"
+"Documentation" --> "GitHub Repository"
+
+@enduml

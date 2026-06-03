@@ -1,0 +1,49 @@
+﻿@startuml
+title Parallel Text Analyzer - Component Diagram
+
+package "GUI Layer" {
+    component "CustomTkinter GUI\napp/main.py" as GUI
+}
+
+package "Processing Layer" {
+    component "Sequential Processor\ncore/sequential_processor.py" as Sequential
+    component "Parallel Processor\ncore/parallel_processor.py" as Parallel
+}
+
+package "Core Layer" {
+    component "Text Analyzer\ncore/analyzer.py" as Analyzer
+    component "Result Model\ncore/models.py" as Models
+    component "Exceptions\ncore/exceptions.py" as Exceptions
+}
+
+package "Benchmark Layer" {
+    component "Benchmark Runner\ncore/benchmark.py" as Benchmark
+    component "Benchmark Script\nrun_benchmark.py" as BenchmarkScript
+}
+
+package "Testing Layer" {
+    component "pytest Tests\ntests/" as Tests
+}
+
+database "Text Files\ndata/sample_texts" as TextFiles
+database "CSV Results\nresults/benchmark-results.csv" as CsvResults
+
+GUI --> Sequential
+GUI --> Parallel
+Sequential --> Analyzer
+Parallel --> Analyzer
+Analyzer --> Models
+Analyzer --> Exceptions
+Analyzer --> TextFiles
+
+BenchmarkScript --> Benchmark
+Benchmark --> Sequential
+Benchmark --> Parallel
+Benchmark --> CsvResults
+
+Tests --> Analyzer
+Tests --> Sequential
+Tests --> Parallel
+Tests --> Benchmark
+
+@enduml

@@ -4,42 +4,151 @@ Parallel Text Analyzer is a desktop application for Object-Oriented Design Labor
 
 The project covers both parts of Lab 3:
 
-- Lab 3a: sequential and multithreaded versions of an algorithm;
+- Lab 3a: sequential and multithreaded versions of the same algorithm;
 - Lab 3b: a GUI application that uses multithreading correctly.
 
 ## Project Idea
 
 The application analyzes text files and compares sequential and parallel processing.
 
-It can calculate:
+It calculates:
 
-- number of files;
+- number of processed files;
 - number of lines;
 - number of words;
 - number of characters;
 - most frequent words;
-- execution time;
-- speedup of parallel processing.
+- sequential execution time;
+- parallel execution time;
+- speedup of parallel processing;
+- equality of sequential and parallel results.
+
+## Laboratory Requirements Coverage
+
+| Requirement | Status | Implementation |
+|---|---|---|
+| Sequential algorithm version | Done | `core/sequential_processor.py` |
+| Multithreaded algorithm version | Done | `core/parallel_processor.py` |
+| Result comparison | Done | tests and GUI comparison |
+| Different thread counts | Done | benchmark runner with worker counts |
+| Execution time measurement | Done | `core/benchmark.py`, `run_benchmark.py` |
+| GUI application | Done | `app/main.py`, CustomTkinter |
+| Correct GUI/thread interaction | Done | background thread + `queue.Queue` + `after()` |
+| Object-oriented design | Done | separate analyzer, processors, models, benchmark classes |
+| Unit tests | Done | `tests/` |
+| Code documentation | Planned | Doxygen-style docstrings and `Doxyfile` |
+| Report/documentation | In progress | `docs/` |
 
 ## Technologies
 
 - Python
 - CustomTkinter
+- ThreadPoolExecutor
+- threading
+- queue.Queue
 - pytest
 - Doxygen
 - Git and GitHub
 
-## Current Status
+## Project Structure
 
-Initial project structure is prepared.
+```text
+.
+├── app/
+│   ├── __init__.py
+│   └── main.py
+├── core/
+│   ├── __init__.py
+│   ├── analyzer.py
+│   ├── benchmark.py
+│   ├── exceptions.py
+│   ├── models.py
+│   ├── parallel_processor.py
+│   └── sequential_processor.py
+├── data/
+│   └── sample_texts/
+├── docs/
+│   ├── architecture.md
+│   ├── benchmark-results.md
+│   ├── multithreading.md
+│   └── testing.md
+├── results/
+│   └── benchmark-results.csv
+├── tests/
+│   ├── __init__.py
+│   ├── test_analyzer.py
+│   ├── test_benchmark.py
+│   └── test_processors.py
+├── run_benchmark.py
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
 
-The next steps will add:
+## How to Install Dependencies
 
-- text analysis domain model;
-- sequential processor;
-- parallel processor;
-- GUI with background worker threads;
-- tests;
-- benchmark results;
-- documentation;
-- UML diagrams.
+```powershell
+python -m pip install -r requirements.txt
+```
+
+## How to Run the GUI Application
+
+```powershell
+python app/main.py
+```
+
+In the application:
+
+1. click `Select folder`;
+2. choose a folder with `.txt` files, for example `data/sample_texts`;
+3. click `Run comparison`;
+4. check the sequential time, parallel time, speedup, and result equality.
+
+## How to Run Tests
+
+```powershell
+python -m pytest
+```
+
+The tests check:
+
+- valid text analysis;
+- invalid file paths;
+- invalid file extensions;
+- directory passed instead of file;
+- empty file list;
+- invalid worker count;
+- equality of sequential and parallel results;
+- equality of parallel results for different thread counts;
+- benchmark row generation;
+- benchmark CSV saving;
+- empty dataset handling.
+
+## How to Run Benchmark
+
+```powershell
+python run_benchmark.py
+```
+
+The benchmark writes results to:
+
+```text
+results/benchmark-results.csv
+```
+
+## Documentation
+
+Project documentation is stored in the `docs/` directory.
+
+| Document | Purpose |
+|---|---|
+| `docs/architecture.md` | Describes the object-oriented architecture |
+| `docs/multithreading.md` | Explains sequential and multithreaded processing |
+| `docs/benchmark-results.md` | Explains benchmark measurements and CSV results |
+| `docs/testing.md` | Describes the testing strategy |
+
+## Notes
+
+For small input datasets, the parallel version may be slower than the sequential version because thread creation and scheduling add overhead.
+
+This is expected and is explained in the benchmark documentation.

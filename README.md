@@ -67,11 +67,16 @@ It calculates:
 │   └── sequential_processor.py
 ├── data/
 │   └── sample_texts/
-├── docs/
+├──docs/
 │   ├── architecture.md
 │   ├── benchmark-results.md
+│   ├── code-documentation.md
 │   ├── multithreading.md
-│   └── testing.md
+│   ├── testing.md
+│   └── uml/
+│       ├── README.md
+│       ├── images/
+│       └── source/
 ├── results/
 │   └── benchmark-results.csv
 ├── tests/
@@ -147,7 +152,61 @@ Project documentation is stored in the `docs/` directory.
 | `docs/benchmark-results.md` | Explains benchmark measurements and CSV results |
 | `docs/testing.md` | Describes the testing strategy |
 | `docs/code-documentation.md` | Explains Doxygen-style code documentation |
+| `docs/uml/README.md` | Lists UML diagrams and their purpose |
 
+## UML Diagrams
+
+UML diagrams are stored in:
+
+```text
+docs/uml/
+```
+
+PlantUML source files are stored in:
+
+```text
+docs/uml/source/
+```
+
+Generated PNG images are stored in:
+
+```text
+docs/uml/images/
+```
+
+The repository includes both `.puml` source files and `.png` images.
+
+Implemented UML diagrams:
+
+- Class diagram;
+- Component diagram;
+- Sequence diagram;
+- Activity diagram;
+- Deployment diagram.
+
+## Code Documentation
+
+The project uses Doxygen-style Python docstrings.
+
+Doxygen configuration file:
+
+```text
+Doxyfile
+```
+
+To generate HTML documentation locally, run:
+
+```powershell
+doxygen Doxyfile
+```
+
+Generated documentation will be placed in:
+
+```text
+docs/api/html/
+```
+
+Generated HTML files are ignored by Git because they are build artifacts.
 ## Notes
 
 For small input datasets, the parallel version may be slower than the sequential version because thread creation and scheduling add overhead.

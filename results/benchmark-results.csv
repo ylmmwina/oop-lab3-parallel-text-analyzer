@@ -1,0 +1,4 @@
+dataset_name,file_count,worker_count,sequential_time_seconds,parallel_time_seconds,speedup,results_equal
+sample_texts,2,1,0.00065540,0.00181420,0.3613,True
+sample_texts,2,2,0.00065540,0.00122810,0.5337,True
+sample_texts,2,4,0.00065540,0.00121660,0.5387,True

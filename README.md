@@ -131,6 +131,14 @@ The tests check:
 
 ## How to Run Benchmark
 
+Generate benchmark datasets:
+
+```powershell
+python generate_datasets.py
+```
+
+Run benchmark:
+
 ```powershell
 python run_benchmark.py
 ```
@@ -139,6 +147,20 @@ The benchmark writes results to:
 
 ```text
 results/benchmark-results.csv
+```
+
+The benchmark uses three generated datasets:
+
+| Dataset | File Count |
+|---|---:|
+| small | 5 |
+| medium | 25 |
+| large | 60 |
+
+For each dataset, the parallel processor is tested with:
+
+```text
+1, 2, 4, 8 worker threads
 ```
 
 ## Documentation
